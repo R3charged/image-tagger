@@ -34,7 +34,7 @@ export default function Home() {
       </div>
       <h4 className='float-left mt-8 m-3 mb-5 text-3xl font-bold bg-gradient-to-tr from-primary to-orange-500 
                       bg-clip-text text-transparent'>
-        What is ImageTagger? <span className='text-white font-normal text-xl'>The only tool you need describe your digital stories.</span>
+        What is PictureSage? <span className='text-white font-normal text-xl'>The only tool you need describe your digital stories.</span>
       </h4>
       <div className='flex flex-row w-full items-center justify-around'>
         <Card className='m-1 w-1/3 self-start'>

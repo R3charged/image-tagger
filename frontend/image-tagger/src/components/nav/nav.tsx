@@ -41,7 +41,7 @@ export default function Nav() {
                                 </IconContext.Provider>
                                 
                                 <h3 className='font-bold text-xl'>
-                                    ImageTagger
+                                    PictureSage
                                 </h3>
                             </NavigationMenuLink>
                     </Link>
