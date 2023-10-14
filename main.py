@@ -1,6 +1,7 @@
+import reverseprompt
 from PIL import Image
-from clip_interrogator import Config, Interrogator
+import torch
 
-def image_to_prompt(image):
-    ci = Interrogator(Config(clip_model_name="ViT-L-14/openai"))
-    return ci.interrogate(image)
+print(torch.cuda.is_available())
+image = Image.open(r"C:\Users\Richard Lee\Pictures\jjk.png").convert('RGB')
+print(reverseprompt.image_to_tags(image))

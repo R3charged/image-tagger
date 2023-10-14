@@ -2,3 +2,4 @@ cache
 env
 __pycache__
 pyvenv.cfg
+ci_env
