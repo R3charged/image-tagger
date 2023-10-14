@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      spacing: {
+        'hero': "30rem"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -50,6 +53,9 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        darksecondary: {
+          DEFAULT: "rgb(23, 24, 22)"
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
