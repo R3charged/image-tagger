@@ -1,4 +1,5 @@
-__pycache__
-ci_env
 env
+cache
+__pycache__
 pyvenv.cfg
+ci_env
