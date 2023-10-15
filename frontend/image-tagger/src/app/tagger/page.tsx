@@ -27,6 +27,8 @@ import { useForm } from "react-hook-form"
 
 export default function InputFile() {
   const [image, setImage] = useState<any>({});
+  const [tags, setTags] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   let form = useForm(); 
 
   async function onSubmit() {
@@ -38,18 +40,16 @@ export default function InputFile() {
       formData.append('file', image);
       
       try {
-        const response = await fetch('/api/upload', {
+        setLoading(true);
+        const response = await fetch('http://127.0.0.1:5000/api/upload', {
           method: 'POST',
           body: formData,
-          headers: {
-            // Set Content-Type to undefined for FormData
-            // The browser will automatically set it to 'multipart/form-data'
-            'Content-Type': 'multipart/form-data',
-          },
         });
-
+        
         // Handle the response here
         if (response.ok) {
+          const tags = await response.json(); 
+          setTags(tags.message);
           console.log('Image uploaded successfully');
         } else {
           console.error('Image upload failed');
@@ -57,6 +57,8 @@ export default function InputFile() {
       } catch (error) {
         console.error('An error occurred:', error);
       }
+
+      setLoading(false);
   }
 
   function onFileChange(e: ChangeEvent<HTMLInputElement>) {
@@ -68,6 +70,36 @@ export default function InputFile() {
     setImage(file);
   }
 
+  function renderTags() {
+    if (loading == false && tags.length == 0) {
+      return (<p> Upload an image to figure out its tags! </p>);
+    }
+
+    if (loading == false) {
+      const tagElems = []; 
+      for (let tag of tags) {
+        tagElems.push(
+          <>
+          <p>{tag}</p>
+          </>
+        );
+      }
+
+      return (<>
+      {tagElems}
+              </>);
+    }
+
+    if (loading) {
+      return (
+        <>
+          <Skeleton className="w-3/4 h-[20px] mb-1"/>
+          <Skeleton className="w-4/5 h-[20px] mb-1"/>
+          <Skeleton className="w-2/3 h-[20px] mb-1"/>
+        </>
+      )
+    }
+  }
   return (
     <div className="flex flex-col">
         <h3 className="ml-auto mr-auto justify-center font-extrabold text-3xl 
@@ -86,15 +118,13 @@ export default function InputFile() {
             <Button variant="default" className="w-20" onClick={onSubmit}>Upload</Button>
           </div>
         </div>
-        <Card className='m-3 col-span-2 p-2'>
+        <Card className='m-3 col-span-2 p-2 h-full'>
           <CardHeader>
             <CardTitle>Keywords</CardTitle>
             <CardDescription></CardDescription>
           </CardHeader>
           <CardContent>
-          <Skeleton className="w-3/4 h-[20px] mb-1"/>
-          <Skeleton className="w-4/5 h-[20px] mb-1"/>
-          <Skeleton className="w-2/3 h-[20px] mb-1"/>
+          {renderTags()}
           </CardContent>
         </Card>
       </div>
